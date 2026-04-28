@@ -8,11 +8,12 @@ import ArtworkModal from "@/components/ArtworkModal";
 import SectionTitle from "@/components/SectionTitle";
 import { Artwork } from "@/data/artworks";
 import { supabase } from "@/lib/supabase/client";
-import daliasImg from "@/assets/dalias.webp";
+import heroBgImg from "@/assets/hero-bg.png";
 import clubImg from "@/assets/club_preview.jpeg";
 import estrelaImg from "@/assets/estrela.webp";
 import mariposaImg from "@/assets/mariposa.webp";
 import imagotipoImg from "@/assets/nerine_imagotipo.webp";
+import florImg from "@/assets/flor.png";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -44,32 +45,23 @@ const Home = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-end justify-center overflow-hidden">
         <img
-          src={daliasImg}
-          alt="Dálias - Arte etérea"
+          src={heroBgImg}
+          alt="Nerine - Hero Background"
           width={1920}
           height={1080}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-background/30" />
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="relative text-center px-6 max-w-2xl"
+          className="relative text-center px-6 pb-20"
         >
-          <img src={imagotipoImg} alt="Nerine" className="h-16 w-auto object-contain mx-auto mb-6 animate-float" />
-          <h1 className="font-display text-5xl md:text-7xl font-semibold text-foreground leading-tight">
-            O que sentimos <br />
-            <span className="italic font-light">também é paisagem</span>
-          </h1>
-          <p className="mt-6 text-foreground text-lg leading-relaxed font-medium" style={{ textShadow: '0 1px 8px rgba(255,255,255,0.6)' }}>
-            Arte visual como espelho de emoções — delicada, contemplativa, honesta.
-          </p>
           <Link
             to="/portfolio"
-            className="inline-block mt-10 px-8 py-3 bg-primary text-primary-foreground rounded-full text-sm tracking-wide hover:bg-primary/90 transition-colors"
+            className="inline-block px-10 py-4 bg-primary text-primary-foreground rounded-full text-sm font-medium tracking-[0.2em] uppercase hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             Explorar
           </Link>
@@ -106,8 +98,13 @@ const Home = () => {
       </section>
 
       {/* Club preview */}
-      <section className="py-24 bg-card overflow-hidden">
-        <div className="container mx-auto px-6">
+      <section className="py-24 bg-card overflow-hidden relative">
+        <img 
+          src={florImg} 
+          alt="" 
+          className="absolute -left-24 top-1/2 -translate-y-1/2 w-80 h-80 object-contain opacity-20 blur-[2px] pointer-events-none select-none z-0" 
+        />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}

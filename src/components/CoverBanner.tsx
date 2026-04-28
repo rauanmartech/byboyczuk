@@ -7,6 +7,8 @@ import meninaMariposaImg from "@/assets/menina_mariposa.webp";
 import paisagemImg from "@/assets/paisagem.webp";
 import veadoImg from "@/assets/veado.webp";
 
+import florImg from "@/assets/flor.png";
+
 interface CoverBannerProps {
   titleTop: string;
   titleBottom: string;
@@ -20,8 +22,14 @@ const CoverBanner = ({ titleTop, titleBottom, subtitle, singleLine }: CoverBanne
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="mb-16 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
+      className="mb-16 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16 relative"
     >
+      {/* Elemento Decorativo (Flor) */}
+      <img 
+        src={florImg} 
+        alt="" 
+        className="absolute -left-20 top-1/2 -translate-y-1/2 w-72 h-72 object-contain opacity-20 blur-[2px] pointer-events-none select-none z-0" 
+      />
       {/* Esquerda: Título Gigante */}
       <div className={`flex-1 flex flex-col justify-center z-10 w-full ${singleLine ? "items-start text-left" : "items-center lg:items-start text-center lg:text-left"}`}>
         <h1 className={`font-display font-bold leading-[0.8] tracking-tighter flex ${singleLine ? "flex-row" : "flex-col"}`}>
@@ -40,7 +48,7 @@ const CoverBanner = ({ titleTop, titleBottom, subtitle, singleLine }: CoverBanne
       </div>
 
       {/* Direita: Grid Regular de Quadrados (2 linhas, 3 colunas) */}
-      <div className="flex-1 w-full max-w-2xl mx-auto lg:max-w-none">
+      <div className="flex-1 w-full max-w-2xl mx-auto lg:max-w-none relative z-10">
         <div className="grid grid-cols-3 gap-3 md:gap-4">
           {[
             meninaMariposaImg,
