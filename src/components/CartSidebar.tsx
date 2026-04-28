@@ -20,6 +20,19 @@ const CartSidebar: React.FC = () => {
     }
   };
 
+  // Impede o scroll do body quando o carrinho está aberto
+  React.useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isCartOpen]);
+
   return (
     <AnimatePresence>
       {isCartOpen && (

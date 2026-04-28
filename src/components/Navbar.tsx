@@ -78,9 +78,9 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             {user ? (
               <DropdownMenu>
-                <DropdownMenuTrigger className="outline-none">
-                  <div className="flex items-center gap-2 md:gap-3 p-1 md:pr-3 rounded-full border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
-                    <Avatar className="h-8 w-8 border border-primary/20">
+                <DropdownMenuTrigger className="outline-none block">
+                  <div className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <Avatar className="h-9 w-9">
                       <AvatarImage src={user.user_metadata?.avatar_url} />
                       <AvatarFallback className="bg-primary text-primary-foreground text-[10px] font-bold">
                         {userInitials}
