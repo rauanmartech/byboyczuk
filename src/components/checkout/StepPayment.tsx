@@ -185,7 +185,7 @@ const StepPayment: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden relative"
+            className="relative"
           >
             {isProcessing && (
               <div className="absolute inset-0 z-50 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center rounded-3xl">
@@ -261,8 +261,13 @@ const StepPayment: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <div className="flex gap-4 pt-6">
-        <Button variant="outline" onClick={prevStep} disabled={isProcessing || paymentStatus === 'success'} className="py-6 px-8 rounded-2xl border-2">
+      <div className="flex justify-center pt-6">
+        <Button 
+          variant="outline" 
+          onClick={prevStep} 
+          disabled={isProcessing || paymentStatus === 'success'} 
+          className="w-full sm:w-auto py-6 px-8 rounded-2xl border-2 flex items-center justify-center gap-2"
+        >
           <ArrowLeft size={20} /> Voltar para Revisão
         </Button>
       </div>

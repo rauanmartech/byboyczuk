@@ -48,14 +48,15 @@ const StepShipping: React.FC = () => {
         })}
       </div>
 
-      <div className="flex gap-4 pt-6">
-        <Button variant="outline" onClick={prevStep} className="py-6 px-8 rounded-2xl border-2">
+      <div className="flex flex-col-reverse sm:flex-row gap-4 pt-6">
+        <Button variant="outline" onClick={prevStep} className="w-full sm:w-auto py-6 px-8 rounded-2xl border-2 flex items-center justify-center gap-2">
           <ArrowLeft size={20} />
+          <span className="sm:hidden">Voltar</span>
         </Button>
         <Button 
           onClick={nextStep} 
           disabled={!data.shippingMethod}
-          className="flex-1 py-6 text-lg rounded-2xl shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="w-full sm:flex-1 py-6 text-lg rounded-2xl shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
         >
           Revisar Pedido
         </Button>

@@ -102,11 +102,13 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onTokenGenerated, amoun
         </div>
       )}
 
-      <div 
-        id="cardPaymentBrick_container" 
-        className={`transition-opacity duration-500 ${loading ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}
-      >
-        {/* O Mercado Pago injeta o formulário aqui */}
+      <div className="max-w-md mx-auto">
+        <div 
+          id="cardPaymentBrick_container" 
+          className={`transition-opacity duration-500 ${loading ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}
+        >
+          {/* O Mercado Pago injeta o formulário aqui */}
+        </div>
       </div>
     </div>
   );

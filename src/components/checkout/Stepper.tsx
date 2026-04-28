@@ -19,8 +19,8 @@ const Stepper: React.FC<StepperProps> = ({ currentStep }) => {
   const currentIndex = steps.findIndex(s => s.key === currentStep);
 
   return (
-    <div className="w-full py-8 overflow-hidden">
-      <div className="flex items-center justify-center md:justify-between max-w-3xl mx-auto px-4 gap-4 md:gap-0">
+    <div className="w-full pt-8 pb-12">
+      <div className="flex items-center justify-center md:justify-between max-w-3xl mx-auto px-2 md:px-4 gap-2 md:gap-0">
         {steps.map((step, index) => {
           const isCompleted = index < currentIndex;
           const isActive = index === currentIndex;
@@ -56,7 +56,7 @@ const Stepper: React.FC<StepperProps> = ({ currentStep }) => {
 
               {/* Progress Line */}
               {index < steps.length - 1 && (
-                <div className={`${index >= currentIndex ? 'hidden md:block' : 'block'} flex-1 h-[2px] bg-muted mx-2 md:mx-4 relative -top-3 min-w-[30px] md:min-w-0`}>
+                <div className="hidden md:block flex-1 h-[2px] bg-muted mx-4 relative -top-3">
                   <motion.div
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: isCompleted ? 1 : 0 }}
