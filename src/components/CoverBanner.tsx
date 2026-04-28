@@ -31,8 +31,8 @@ const CoverBanner = ({ titleTop, titleBottom, subtitle, singleLine }: CoverBanne
         className="absolute -left-20 top-1/2 -translate-y-1/2 w-72 h-72 object-contain opacity-20 blur-[2px] pointer-events-none select-none z-0" 
       />
       {/* Esquerda: Título Gigante */}
-      <div className={`flex-1 flex flex-col justify-center z-10 w-full ${singleLine ? "items-start text-left" : "items-center lg:items-start text-center lg:text-left"}`}>
-        <h1 className={`font-display font-bold leading-[0.8] tracking-tighter flex ${singleLine ? "flex-row" : "flex-col"}`}>
+      <div className={`flex-1 flex flex-col justify-center z-10 w-full items-center lg:items-start text-center lg:text-left`}>
+        <h1 className={`font-display font-bold leading-[0.8] tracking-tighter flex justify-center lg:justify-start ${singleLine ? "flex-row" : "flex-col"}`}>
           <span className="text-[6rem] md:text-[8rem] lg:text-[9rem] xl:text-[11rem] text-primary drop-shadow-sm">
             {titleTop}
           </span>

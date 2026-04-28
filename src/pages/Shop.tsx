@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SectionTitle from "@/components/SectionTitle";
 import { Artwork } from "@/data/artworks";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Plus, Check } from "lucide-react";
+import { ShoppingBag, Plus, Check, MessageCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { useCart } from "@/context/CartContext";
 
@@ -108,26 +108,37 @@ const Shop = () => {
                     <span className="font-display text-xl font-semibold text-primary">
                       {art.price ? `R$ ${art.price.toLocaleString("pt-BR")}` : "Sob consulta"}
                     </span>
-                    <Button
-                      size="sm"
-                      variant={isInCart(art.id) ? "default" : "outline"}
-                      onClick={() => {
-                        if (isInCart(art.id)) return;
-                        addItem({
-                          id: art.id,
-                          title: art.title,
-                          price: art.price || 0,
-                          image_url: art.image
-                        });
-                      }}
-                      className="gap-2 rounded-xl"
-                    >
-                      {isInCart(art.id) ? (
-                        <><Check size={14} /> No Carrinho</>
-                      ) : (
-                        <><Plus size={14} /> Adicionar</>
-                      )}
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366]/5 rounded-xl h-9 w-9 shrink-0 transition-all"
+                        onClick={() => window.open(`https://wa.me/5511992977126?text=Olá! Gostaria de saber mais sobre a obra "${art.title}"`, "_blank")}
+                        title="Dúvidas? Converse comigo"
+                      >
+                        <MessageCircle size={18} />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant={isInCart(art.id) ? "default" : "outline"}
+                        onClick={() => {
+                          if (isInCart(art.id)) return;
+                          addItem({
+                            id: art.id,
+                            title: art.title,
+                            price: art.price || 0,
+                            image_url: art.image
+                          });
+                        }}
+                        className="gap-2 rounded-xl"
+                      >
+                        {isInCart(art.id) ? (
+                          <><Check size={14} /> No Carrinho</>
+                        ) : (
+                          <><Plus size={14} /> Adicionar</>
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </motion.div>

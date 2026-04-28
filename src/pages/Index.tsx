@@ -8,12 +8,13 @@ import ArtworkModal from "@/components/ArtworkModal";
 import SectionTitle from "@/components/SectionTitle";
 import { Artwork } from "@/data/artworks";
 import { supabase } from "@/lib/supabase/client";
-import heroBgImg from "@/assets/hero-bg.png";
-import clubImg from "@/assets/club_preview.jpeg";
+import heroBgImg from "@/assets/hero-bg.webp";
+import heroMobileBgImg from "@/assets/mobile/mobile-hero-bg.webp";
+import clubImg from "@/assets/club_preview.webp";
 import estrelaImg from "@/assets/estrela.webp";
 import mariposaImg from "@/assets/mariposa.webp";
 import imagotipoImg from "@/assets/nerine_imagotipo.webp";
-import florImg from "@/assets/flor.png";
+import florImg from "@/assets/flor.webp";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -27,7 +28,7 @@ const Home = () => {
         .from("artworks")
         .select("*")
         .eq("is_portfolio", true)
-        .limit(3)
+        .limit(4)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -46,13 +47,16 @@ const Home = () => {
 
       {/* Hero */}
       <section className="relative h-screen flex items-end justify-center overflow-hidden">
-        <img
-          src={heroBgImg}
-          alt="Nerine - Hero Background"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <picture className="absolute inset-0 w-full h-full">
+          <source media="(max-width: 768px)" srcSet={heroMobileBgImg} />
+          <img
+            src={heroBgImg}
+            alt="Nerine - Hero Background"
+            width={1920}
+            height={1080}
+            className="w-full h-full object-cover"
+          />
+        </picture>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,15 +78,17 @@ const Home = () => {
           <SectionTitle title="Obras Recentes" subtitle="Fragmentos de sentimento traduzidos em cor e forma." />
           
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-96 rounded-lg bg-muted animate-pulse" />
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className={`h-96 rounded-lg bg-muted animate-pulse ${i === 3 ? "md:hidden" : ""}`} />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {recentWorks.map((art, i) => (
-                <ArtworkCard key={art.id} artwork={art} onClick={setSelected} index={i} />
+                <div key={art.id} className={i === 3 ? "md:hidden" : ""}>
+                  <ArtworkCard artwork={art} onClick={setSelected} index={i} />
+                </div>
               ))}
             </div>
           )}

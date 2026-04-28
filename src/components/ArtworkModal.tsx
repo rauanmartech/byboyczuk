@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink } from "lucide-react";
+import { X, ExternalLink, Plus, MessageCircle, Check } from "lucide-react";
 import { Artwork } from "@/data/artworks";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/context/CartContext";
 
 interface ArtworkModalProps {
   artwork: Artwork | null;
@@ -10,7 +11,11 @@ interface ArtworkModalProps {
   hideCommercialInfo?: boolean;
 }
 
-const ArtworkModal = ({ artwork, onClose, hideCommercialInfo = false }: ArtworkModalProps) => (
+const ArtworkModal = ({ artwork, onClose, hideCommercialInfo = false }: ArtworkModalProps) => {
+  const { addItem, items: cartItems } = useCart();
+  const isInCart = artwork ? cartItems.some(item => item.id === artwork.id) : false;
+
+  return (
   <AnimatePresence>
     {artwork && (
       <motion.div
@@ -78,20 +83,44 @@ const ArtworkModal = ({ artwork, onClose, hideCommercialInfo = false }: ArtworkM
             </div>
 
             {!hideCommercialInfo && (
-              <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-border">
-                <div className="space-y-1">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Investimento</span>
-                  <p className="font-display text-3xl font-semibold text-primary">
-                    {artwork.price ? `R$ ${artwork.price.toLocaleString("pt-BR")}` : "Sob consulta"}
-                  </p>
+              <div className="pt-8 border-t border-border space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Investimento</span>
+                    <p className="font-display text-3xl font-semibold text-primary">
+                      {artwork.price ? `R$ ${artwork.price.toLocaleString("pt-BR")}` : "Sob consulta"}
+                    </p>
+                  </div>
+                  {artwork.available && artwork.price && (
+                    <Button
+                      size="lg"
+                      disabled={isInCart}
+                      className="w-full sm:w-auto gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 shadow-soft"
+                      onClick={() => {
+                        addItem({
+                          id: artwork.id,
+                          title: artwork.title,
+                          price: artwork.price || 0,
+                          image_url: artwork.image
+                        });
+                      }}
+                    >
+                      {isInCart ? (
+                        <><Check size={18} /> No Carrinho</>
+                      ) : (
+                        <>{artwork.price ? "Adquirir Obra" : "Solicitar Orçamento"}</>
+                      )}
+                    </Button>
+                  )}
                 </div>
+                
                 <Button
-                  size="lg"
-                  className="w-full sm:w-auto gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 shadow-soft"
-                  onClick={() => window.open(`https://wa.me/5511992977126?text=Olá! Tenho interesse na obra "${artwork.title}"`, "_blank")}
+                  variant="outline"
+                  className="w-full border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/10 hover:text-[#25D366] rounded-full gap-2 transition-all"
+                  onClick={() => window.open(`https://wa.me/5511992977126?text=Olá! Tenho uma dúvida sobre a obra "${artwork.title}"`, "_blank")}
                 >
-                  {artwork.price ? "Adquirir Obra" : "Solicitar Orçamento"}
-                  <ExternalLink size={16} />
+                  <MessageCircle size={18} />
+                  Dúvidas sobre a obra?
                 </Button>
               </div>
             )}
@@ -100,6 +129,7 @@ const ArtworkModal = ({ artwork, onClose, hideCommercialInfo = false }: ArtworkM
       </motion.div>
     )}
   </AnimatePresence>
-);
+  );
+};
 
 export default ArtworkModal;
