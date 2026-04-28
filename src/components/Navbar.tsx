@@ -74,18 +74,19 @@ const Navbar = () => {
             )}
           </button>
 
-          <div className="hidden md:flex items-center gap-2">
+          {/* Usuário — mobile/desktop */}
+          <div className="flex items-center gap-2">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none">
-                  <div className="flex items-center gap-3 p-1 pr-3 rounded-full border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
+                  <div className="flex items-center gap-2 md:gap-3 p-1 md:pr-3 rounded-full border border-border bg-muted/30 hover:bg-muted/50 transition-colors">
                     <Avatar className="h-8 w-8 border border-primary/20">
                       <AvatarImage src={user.user_metadata?.avatar_url} />
                       <AvatarFallback className="bg-primary text-primary-foreground text-[10px] font-bold">
                         {userInitials}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-xs font-medium text-foreground max-w-[100px] truncate">
+                    <span className="text-xs font-medium text-foreground max-w-[100px] truncate hidden md:block">
                       {user.user_metadata?.full_name || "Minha Conta"}
                     </span>
                   </div>
@@ -117,9 +118,11 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="px-5 py-2 rounded-full border border-primary/40 text-sm text-primary tracking-wide hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="p-1.5 md:px-5 md:py-2 rounded-full border border-transparent md:border-primary/40 text-muted-foreground md:text-primary tracking-wide hover:bg-muted md:hover:bg-primary md:hover:text-primary-foreground transition-all duration-300 flex items-center gap-2"
+                aria-label="Área do cliente"
               >
-                Área do cliente
+                <UserIcon size={22} className="md:hidden" />
+                <span className="hidden md:block text-sm font-medium">Área do cliente</span>
               </Link>
             )}
           </div>
@@ -155,13 +158,15 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                to="/login"
-                onClick={() => setOpen(false)}
-                className="text-sm tracking-wide py-2.5 px-4 rounded-full bg-primary/10 text-primary font-medium text-center transition-colors hover:bg-primary/20"
-              >
-                {user ? "Minha conta" : "Área do cliente"}
-              </Link>
+              {!user && (
+                <Link
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="text-sm tracking-wide py-2.5 px-4 rounded-full bg-primary/10 text-primary font-medium text-center transition-colors hover:bg-primary/20"
+                >
+                  Área do cliente
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
